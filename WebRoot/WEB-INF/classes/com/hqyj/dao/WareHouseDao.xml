@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.WareHouseDao">
+	<select id="queryAll" parameterType="com.hqyj.bean.WareHouse" resultType="com.hqyj.bean.WareHouse">
+		select * from warehouse order by id desc
+	</select>
+	<select id="queryByDrugId" parameterType="java.lang.String" resultType="com.hqyj.bean.WareHouse">
+		select * from warehouse where drug_id=#{drug_id}
+	</select>
+	<select id="queryById" parameterType="int" resultType="com.hqyj.bean.WareHouse">
+		select * from warehouse where id=#{id}
+	</select>
+	<insert id="add" parameterType="com.hqyj.bean.StockDrug">
+		insert into warehouse(drug_id,stock_number) value(#{drug_id},#{buy_num})
+	</insert>
+	<update id="updateRecovery" parameterType="com.hqyj.bean.WareHouse">
+		update warehouse set stock_number=#{stock_number} where id=#{id}
+	</update>
+	<update id="updateAdd" parameterType="com.hqyj.bean.WareHouse">
+		update warehouse set stock_number=#{stock_number} where id=#{id}
+	</update>
+	<update id="updateSub" parameterType="com.hqyj.bean.WareHouse">
+		update warehouse set stock_number=#{stock_number} where drug_id=#{drug_id}
+	</update>
+	<update id="edit" parameterType="com.hqyj.bean.WareHouse">
+		update warehouse set drug_name=#{drug_name},manufacturer=#{manufacturer},standard=#{standard},sale_price=#{sale_price} where id=#{id}
+	</update>
+	<!-- <sql id="wareHouse_where">
+		<where>
+			<if test="drug_id!=null and drug_id!=''">
+				and drug_id like '%${drug_id}%'
+			</if>
+			<if test="drug_name!=null and drug_name!=''">
+				and drug_name=#{drug_name}
+			</if>
+		</where>
+	</sql>
+	<select id="queryWareHouseByCondition" resultType="com.hqyj.bean.WareHouse">
+        select * from warehouse
+        <include refid="wareHouse_where"></include>
+    </select> -->
+    
+    <sql id="wareHouse_where">
+		<where>
+			<if test="drug_id!=null and drug_id!=''">
+				and drug_id like '%${drug_id}%'
+			</if>
+			<if test="drug_name!=null and drug_name!=''">
+				and drug_name like '%${drug_name}%'
+			</if>
+			<if test="index>0">
+             limit #{index},4
+        </if>
+		</where>
+	</sql>
+	<select id="queryWareHouseByCondition" resultType="com.hqyj.bean.WareHouse">
+        select * from warehouse
+        <include refid="wareHouse_where"></include>
+    </select>
+    
+     <sql id="wareHouseWhere">
+		<where>
+			<if test="drug_id!=null and drug_id!=''">
+				and drug_id like '%${drug_id}%'
+			</if>
+			<if test="drug_name!=null and drug_name!=''">
+				and drug_name=#{drug_name}
+			</if>
+		</where>
+	</sql>
+	<select id="queryPagecount"  resultType="int">
+      	 select count(*) from warehouse
+        <include refid="wareHouseWhere"></include>
+    </select>
+    
+	<resultMap type="com.hqyj.bean.WareHouse" id="wareHouseResult">
+	   <id column="drug_id" property="drug_id"/>
+	  <result column="drug_name" property="drug_name" />
+	  <result column="stock_number" property="stock_number"/>
+	  <result column="manufacturer" property="manufacturer"/>
+	  <result column="standard" property="standard"/>
+	  <result column="sale_price" property="sale_price"/>
+	</resultMap>
+	<select id="showlist" parameterType="int" resultMap="wareHouseResult">
+	   select *from warehouse order by id desc limit #{index},4
+	</select>
+	<select id="pagecount" resultType="int">
+	  select count(*) from warehouse
+	</select> 
+
+</mapper>

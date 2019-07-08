@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.StockDrugDao">
+	<select id="queryAll" resultType="com.hqyj.bean.StockDrug">
+		select * from stockdrug order by id desc
+	</select>
+	<select id="queryById" parameterType="int" resultType="com.hqyj.bean.StockDrug">
+		select * from stockdrug where id=#{id}
+	</select>
+	<insert id="add" parameterType="com.hqyj.bean.StockDrug">
+		insert into stockdrug(bill_id,drug_id,price,buy_num,date,supplier) value(#{bill_id},#{drug_id},#{price},#{buy_num},#{date},#{supplier})
+	</insert>
+	<update id="edit" parameterType="com.hqyj.bean.StockDrug">
+		update stockdrug set bill_id=#{bill_id},drug_id=#{drug_id},price=#{price},buy_num=#{buy_num},date=#{date},supplier=#{supplier} where id=#{id}
+	</update>
+	<sql id="stockdrug_where">
+		<where>
+			<if test="drug_id!=null and drug_id!=''">
+				and drug_id like '%${drug_id}%'
+			</if>
+			<if test="date!=null and date!=''">
+				and date like '%${date}%'
+			</if>
+			<if test="supplier!=null and supplier!=''">
+				and supplier like '%${supplier}%'
+			</if>
+		</where>
+	</sql>
+	<select id="queryStockDrugByCondition" parameterType="com.hqyj.bean.StockDrug" resultType="com.hqyj.bean.StockDrug">
+        select * from stockdrug
+        <include refid="stockdrug_where"></include>
+    </select>
+</mapper>

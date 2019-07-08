@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.UserDao">
+	<select id="queryByCondition" parameterType="com.hqyj.bean.User" resultType="com.hqyj.bean.User">
+		select * from user where username=#{username} and usertype=#{usertype}
+	</select>
+	<insert id="add" parameterType="com.hqyj.bean.User">
+		insert into user(username,password,usertype) value(#{username},#{password},#{usertype})
+	</insert>
+	<select id="querydAll" resultType="com.hqyj.bean.User">
+		select * from user order by id desc
+	</select>
+	<select id="findUserById" parameterType="int" resultType="com.hqyj.bean.User">
+		select * from user where id=#{id}
+	</select>
+	<update id="edit" parameterType="com.hqyj.bean.User">
+		update user set password=#{password},usertype=#{usertype} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from user where id=#{id}
+	</delete>
+	<sql id="user_where">
+		<where>
+			<if test="username!=null and username!=''">
+				and username like '%${username}%'
+			</if>
+			<if test="usertype>=0">
+				and usertype=#{usertype}
+			</if>
+		</where>
+	</sql>
+	<select id="queryUserByCondition" parameterType="com.hqyj.bean.User" resultType="com.hqyj.bean.User">
+        select * from user
+        <include refid="user_where"></include>
+    </select>
+</mapper>

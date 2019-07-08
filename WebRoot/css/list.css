@@ -1,0 +1,143 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+}
+#loginBox{
+	width: 100%;
+	height: 30%;
+	background: url(../img/0.jpg) no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+	font-size: 20px;
+}
+#logonBox{
+	position: absolute;
+	left: 30px;
+	top: 20px;
+}
+#cookieBox{
+	position: absolute;
+	left: 30px;
+	bottom: 20px;
+}
+#logoutBox{
+	position: absolute;
+	right: 50px;
+	bottom: 20px;
+}
+#meauBox{
+	width: 100%;
+	height:69.70%;
+	position: relative;
+}
+#mainMenu{
+	width: 200px;
+	height: 492px;
+	background: url(../img/8.jpg) no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+}
+#menuName{
+	margin-left: 25px;
+	font-size: 30px;
+}
+#mainMenu ul li{
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 20px;
+	font-size: 30px;
+}
+a{	
+	text-decoration: none;
+	color: black;
+}
+.bgred{
+	background: gray;
+}
+#subMenu{
+	width: 1333px;
+	height: 492px;
+	position: absolute;
+	background: url(../img/9.png) no-repeat;
+	background-size: 100% 100%;
+	left: 200px;
+}
+#subMenuSon{
+	position: absolute;
+	background: url(../img/9.png) no-repeat;
+	background-size: 100% 100%;
+	top: 100px;
+	left: 300px;
+	
+}
+table{
+	text-align:center;
+}
+#subMenuSon1{
+	position: absolute;
+	top: 0px;
+	left: 450px;
+}
+#subMenuSon2{
+	position: absolute;
+	top: 0px;
+	left: 540px;
+}
+#addBackground4{
+	margin: 0px auto;
+	position: absolute;
+	top: 17%;
+	left: 40%;
+}
+#addBackground5{
+	position: absolute;
+	
+	top: 23%;
+	left: 40%;
+	
+}
+#addBackground6{
+	position: absolute;
+	top: 29%;
+	left: 40%;
+}
+#addBackground1{
+	margin: 0px auto;
+	position: absolute;
+	top: 35%;
+	left: 40%;
+}
+#addBackground2{
+	margin: 0px auto;
+	position: absolute;
+	top: 42%;
+	left: 40%;
+}
+#addBackground3{
+	margin: 0px auto;
+	position: absolute;
+	top: 48%;
+	left: 40%;
+}
+
+#addBox{
+	position: absolute;
+	top: 55%;
+	left: 40%;
+	background: url(234.jpg) no-repeat;
+	background-size: 100% 100%;
+	color: black;
+}
+#box{
+	background: url(../img/0.jpg) no-repeat;
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+#list .bgClick{
+	background:red;
+}

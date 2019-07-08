@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"  
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/mvc/spring-jdbc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd  
+		">
+		
+		<mvc:annotation-driven></mvc:annotation-driven>
+		<context:component-scan base-package="com.hqyj"></context:component-scan>
+		<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/WEB-INF/jsp/"></property>
+			<property name="suffix" value=".jsp"></property>
+		</bean>
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql://localhost:3306/drugmanager"></property>
+			<property name="username" value="root"></property>
+			<property name="password" value="tiger"></property>
+		</bean>
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		</bean>
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage" value="com.hqyj.dao"></property>
+			<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		</bean>
+		<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		<tx:annotation-driven transaction-manager="txManager"/>
+		<mvc:interceptors> 				
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.hqyj.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		  <mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.hqyj.interceptor.UserInterceptor"></bean>
+		</mvc:interceptor> 
+	</mvc:interceptors>
+</beans>
